@@ -78,7 +78,9 @@ public class Caller {
 	private Result lastResult;
 
 	private Caller() {
-		cache = new FileSystemCache();
+		cache = null; 
+		
+		//new FileSystemCache();
 	}
 
 	/**
