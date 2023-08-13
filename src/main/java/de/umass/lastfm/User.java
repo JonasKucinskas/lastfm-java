@@ -204,8 +204,8 @@ public class User extends ImageHolder {
 		return ResponseBuilder.buildCollection(result, Artist.class);
 	}
 
-	public static Collection<Artist> getTopArtists(String user, String apiKey, String limit) {
-		Result result = Caller.getInstance().call("user.getTopArtists", apiKey, "user", user, "limit", limit);
+	public static Collection<Artist> getTopArtists(String user, Period period, String apiKey, int limit) {
+		Result result = Caller.getInstance().call("user.getTopArtists", apiKey, "user", user, "period", period.getString(), "limit", String.valueOf(limit));
 		return ResponseBuilder.buildCollection(result, Artist.class);
 	}
 
