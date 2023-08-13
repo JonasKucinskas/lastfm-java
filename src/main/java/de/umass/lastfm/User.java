@@ -199,6 +199,11 @@ public class User extends ImageHolder {
 		return ResponseBuilder.buildCollection(result, Artist.class);
 	}
 
+	public static Collection<Artist> getTopArtists(String user, Period period, String apiKey, String page) {
+		Result result = Caller.getInstance().call("user.getTopArtists", apiKey, "user", user, "period", period.getString(), "page", page);
+		return ResponseBuilder.buildCollection(result, Artist.class);
+	}
+
 	public static Collection<Track> getTopTracks(String user, String apiKey) {
 		return getTopTracks(user, Period.OVERALL, apiKey);
 	}
