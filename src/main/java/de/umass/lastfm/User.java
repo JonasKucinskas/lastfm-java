@@ -699,21 +699,6 @@ public class User extends ImageHolder {
 				}
 			}
 
-			if (element.hasChild("image")){
-				DomElement imageElement = element.getChild("image");
-				try {
-					for (DomElement child : imageElement.getChildren()){
-
-						String imageSize = child.getAttribute("size");
-						String imageUrl = child.getAttribute("#text");
-						ImageSize size = ImageSize.valueOf(imageSize.toUpperCase());
-						user.imageUrls.put(size, imageUrl);
-					}
-
-				} catch (NumberFormatException e) {
-					// no imageUrls
-				}
-			}
 
 			return user;
 		}
