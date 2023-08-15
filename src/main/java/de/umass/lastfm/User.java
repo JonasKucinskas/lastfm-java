@@ -55,6 +55,11 @@ public class User extends ImageHolder {
 	private int numPlaylists;
 	private int playcount;
 	private Date registeredDate;
+	private int artistcount;
+
+	private int albumcount;
+	private int trackcount;
+	private HashMap<ImageSize,String> imageUrls;
 
 	private User(String name, String url) {
 		this.name = name;
@@ -111,6 +116,22 @@ public class User extends ImageHolder {
 
 	public Date getRegisteredDate() {
 		return registeredDate;
+	}
+
+	public int getArtistCount() {
+		return artistcount;
+	}
+
+	public int getTrackCount(){
+		return trackcount;
+	}
+
+	public int getAlbumCount(){
+		return albumcount;
+	}
+
+	public HashMap<ImageSize,String> getImageUrls(){
+		return imageUrls;
 	}
 
 	/**
@@ -653,6 +674,47 @@ public class User extends ImageHolder {
 					// no registered date
 				}
 			}
+
+			if (element.hasChild("artist_count")){
+				try {
+					user.artistcount = Integer.parseInt(element.getChildText("artist_count"));
+				} catch (NumberFormatException e) {
+					// no artistcount
+				}
+			}
+
+			if (element.hasChild("track_count")){
+				try {
+					user.trackcount = Integer.parseInt(element.getChildText("track_count"));
+				} catch (NumberFormatException e) {
+					// no trackcount
+				}
+			}
+
+			if (element.hasChild("album_count")){
+				try {
+					user.albumcount = Integer.parseInt(element.getChildText("album_count"));
+				} catch (NumberFormatException e) {
+					// no albumcount
+				}
+			}
+
+			if (element.hasChild("image")){
+				DomElement imageElement = element.getChild("image");
+				try {
+					for (DomElement child : imageElement.getChildren()){
+
+						String imageSize = child.getAttribute("size");
+						String imageUrl = child.getAttribute("#text");
+						ImageSize size = ImageSize.valueOf(imageSize.toUpperCase());
+						user.imageUrls.put(size, imageUrl);
+					}
+
+				} catch (NumberFormatException e) {
+					// no imageUrls
+				}
+			}
+
 			return user;
 		}
 	}
